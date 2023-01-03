@@ -58,7 +58,7 @@ module.exports.handler = function handler(event, context, callback) {
 
         callback(null, {
           statusCode: 200,
-          body: data,
+          body: data.toString("base64"),
           isBase64Encoded: true,
           headers
         });
