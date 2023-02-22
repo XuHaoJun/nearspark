@@ -21,7 +21,7 @@ app.get("/thumbnail/:b64url", function(req, res) {
         res
           .status(callback.statusCode)
           .header(callback.headers)
-          .send(callback.body);
+          .send(Buffer.from(callback.body, "base64"));
       }
     );
   } catch (error) {
