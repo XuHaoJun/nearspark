@@ -5,7 +5,8 @@
   "main": "index.js",
   "scripts": {
     "release": "np && git push",
-    "deploy": "serverless deploy"
+    "deploy": "serverless deploy",
+    "local": "node app.js"
   },
   "keywords": [],
   "author": "",
