@@ -1,5 +1,7 @@
 const lambda = require("./index");
 const express = require("express");
+const fs = require("fs");
+const https = require("https");
 
 const app = express();
 
@@ -30,6 +32,22 @@ app.get("/thumbnail/:b64url", function(req, res) {
   }
 });
 
-app.listen(5002, function() {
-  console.log("listening on :5002");
+const certPath = "certs/cert.pem";
+const certPrivKeyPath = "certs/key.pem";
+let httpsOptions;
+if (fs.existsSync(certPath) && fs.existsSync(certPrivKeyPath)) {
+  httpsOptions = {
+    cert: fs.readFileSync(certPath),
+    key: fs.readFileSync(certPrivKeyPath)
+  };
+}
+
+let server;
+if (httpsOptions) {
+  server = https.createServer(httpsOptions, app);
+} else {
+  server = app;
+}
+server.listen(5000, function() {
+  console.log("listening on :5000");
 });
